@@ -1,0 +1,3 @@
+.my-slider-book::-webkit-slider-thumb {
+    border: 1px solid black !important;  /* Color y grosor del borde */
+}

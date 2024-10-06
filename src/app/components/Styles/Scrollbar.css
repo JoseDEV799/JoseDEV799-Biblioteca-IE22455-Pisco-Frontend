@@ -1,0 +1,27 @@
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    /* Para IE y Edge */
+    scrollbar-width: none;
+    /* Para Firefox */
+}
+
+.scrollbar-thin {
+    scrollbar-width: thin;
+    -ms-overflow-style: thin;
+    scrollbar-color: rgba(255,255,255,0) rgba(255,255,255,0);
+    transition: scrollbar-color 0.3s ease;
+    
+}
+
+::-webkit-scrollbar-button {
+    display: none;    
+}
+
+.scrollbar-thin:hover {
+    scrollbar-color: rgba(255,255,255,1) rgba(0,0,0,0);
+    transition: scrollbar-color 0.3s ease;
+}
