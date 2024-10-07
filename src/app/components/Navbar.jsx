@@ -36,7 +36,7 @@ const Navbar = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const onSubmit = handleSubmit(async (data) => {
         await signin(data)
-        window.location.reload()
+        // window.location.reload()
     })
 
 
