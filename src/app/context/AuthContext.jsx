@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
     const signup = async (user) => {
         try {
             const res = await loginRequest(user)
+            Cookies.set('token', res.data.token, { expires: 7 })
             // console.log(res.data)
         } catch (error) {
             console.log(error)
