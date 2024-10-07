@@ -85,7 +85,7 @@ const Navbar = () => {
                                 className={'text-[#F0F0F0] dark:text-white flex items-center'}>
                                 <div className='flex flex-col -space-y-1'>
                                     <span className='max-sm:text-end sm:text-center'>Jose Falconi</span>
-                                    <span className='text-sm max-sm:text-xs max-sm:text-end sm:text-center'>Administrador</span>
+                                    <span className='text-sm max-sm:text-xs max-sm:text-end sm:text-center'>Administracion</span>
                                 </div>
                             </Heading>
                             <Button
