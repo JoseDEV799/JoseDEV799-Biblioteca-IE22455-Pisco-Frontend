@@ -3,7 +3,7 @@ import Layout from "./app/components/Layout";
 import Principal from "./app/pages/client/Principal";
 import Index from "./app/pages/client/Index";
 import FilterCategory from './app/pages/client/FilterCategory';
-import { AuthProvider } from "./app/context/AuthContext";
+// import { AuthProvider } from "./app/context/AuthContext";
 import { CategoryProvider } from "./app/context/CategoryContext";
 import { BooksProvider } from "./app/context/BooksContext";
 import ReadBook from "./app/pages/client/ReadBook";
