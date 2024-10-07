@@ -11,7 +11,7 @@ import ReadBook from "./app/pages/client/ReadBook";
 function App() {
   return (
     <>
-      <AuthProvider>
+      {/* <AuthProvider>
         <BooksProvider>
           <CategoryProvider>
             <BrowserRouter>
@@ -27,7 +27,24 @@ function App() {
             </BrowserRouter>
           </CategoryProvider>
         </BooksProvider>
-      </AuthProvider>
+      </AuthProvider> */}
+
+      <BooksProvider>
+        <CategoryProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route path="/principal" element={<Principal />}>
+                  <Route index element={<Index />} />
+                  <Route path='filter-category' element={<FilterCategory />} />
+                </Route>
+                <Route path='/read-book' element={<ReadBook />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </CategoryProvider>
+      </BooksProvider>
+
     </>
   )
 }
