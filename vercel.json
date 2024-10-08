@@ -12,7 +12,7 @@
             "headers": [
                 {
                     "key": "Cache-Control",
-                    "value": null
+                    "value": "no cache"
                 }
             ]
         }
