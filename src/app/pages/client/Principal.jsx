@@ -29,6 +29,7 @@ export default function Principal() {
     useEffect(()=>{
         const isShowPanelCategories = sessionStorage.getItem('isShowPanelCategories')
         setIsShowPanel(JSON.parse(isShowPanelCategories))
+        console.log('Categories:', categories);
     },[])
 
     useEffect(() => {
