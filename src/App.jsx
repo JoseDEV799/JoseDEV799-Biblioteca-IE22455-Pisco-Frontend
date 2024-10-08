@@ -3,7 +3,7 @@ import Layout from "./app/components/Layout";
 import Principal from "./app/pages/client/Principal";
 import Index from "./app/pages/client/Index";
 import FilterCategory from './app/pages/client/FilterCategory';
-// import { AuthProvider } from "./app/context/AuthContext";
+import { AuthProvider } from "./app/context/AuthContext";
 import { CategoryProvider } from "./app/context/CategoryContext";
 import { BooksProvider } from "./app/context/BooksContext";
 import ReadBook from "./app/pages/client/ReadBook";
@@ -11,7 +11,7 @@ import ReadBook from "./app/pages/client/ReadBook";
 function App() {
   return (
     <>
-      {/* <AuthProvider>
+      <AuthProvider>
         <BooksProvider>
           <CategoryProvider>
             <BrowserRouter>
@@ -27,9 +27,9 @@ function App() {
             </BrowserRouter>
           </CategoryProvider>
         </BooksProvider>
-      </AuthProvider> */}
+      </AuthProvider>
 
-      <BooksProvider>
+      {/* <BooksProvider>
         <CategoryProvider>
           <BrowserRouter>
             <Routes>
@@ -43,7 +43,7 @@ function App() {
             </Routes>
           </BrowserRouter>
         </CategoryProvider>
-      </BooksProvider>
+      </BooksProvider> */}
 
     </>
   )
