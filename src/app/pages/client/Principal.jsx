@@ -26,10 +26,14 @@ export default function Principal() {
         return <div>Cargando...</div> // O cualquier otro mensaje/estado que desees
     }
 
+    useEffect(()=>{
+        console.log('Categories:', categories);
+
+    },[categories])
+
     useEffect(() => {
         const isShowPanelCategories = sessionStorage.getItem('isShowPanelCategories')
         setIsShowPanel(JSON.parse(isShowPanelCategories))
-        console.log('Categories:', categories);
     }, [])
 
     useEffect(() => {
