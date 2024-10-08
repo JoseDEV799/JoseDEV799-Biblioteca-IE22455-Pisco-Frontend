@@ -190,7 +190,7 @@ export default function Principal() {
                                 :
                                 (
 
-                                    <ListItem key={index}
+                                    <ListItem
                                         className={'relative'}>
                                         Sin Categorias
                                     </ListItem>
