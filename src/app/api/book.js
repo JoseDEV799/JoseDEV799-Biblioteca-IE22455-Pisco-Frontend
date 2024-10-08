@@ -1,6 +1,6 @@
 import axios from "./axios"
 
-export const allBooks = () => axios.get('/books')
+export const allBooks = () => axios.get('books')
 
 export const bookCategory = (customParam) => axios.post('/books/category', customParam)
 
