@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }) => {
             const res = await loginRequest(user);
             // Guarda el token en cookies al iniciar sesión
             Cookies.set('token', res.data.token, { expires: 7 });
+            localStorage.setItem('token', res.data.token); // Guarda el token en localStorage
             setUser(res.data);
             setIsAuthenticated(true);
             console.log('Signed in user:', res.data); // Verifica el usuario firmado
@@ -53,12 +54,14 @@ export const AuthProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        const checkLogin = async () => {
-            const token = Cookies.get('token'); // Obtiene el token directamente
+        const checkLogin = async () => { // Obtiene el token directamente
+            const token = localStorage.getItem('token');
             if (!token) {
                 setIsAuthenticated(false);
                 setLoading(false);
                 return;
+            } else {
+                Cookies.set('token', token);
             }
 
             try {
