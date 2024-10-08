@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const res = await loginRequest(user)
             // console.log(res.data)
+            Cookies.set('token', res.data.token, { expires: 7 })
             setUser(res.data)
             setIsAuthenticated(true)
         } catch (error) {
