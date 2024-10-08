@@ -21,16 +21,16 @@ export default function Principal() {
         setIsShowPanel(!isShowPanel)
         sessionStorage.setItem('isShowPanelCategories', JSON.stringify(!isShowPanel))
     }
-    
+
     if (!categories || !Array.isArray(categories)) {
         return <div>Cargando...</div> // O cualquier otro mensaje/estado que desees
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         const isShowPanelCategories = sessionStorage.getItem('isShowPanelCategories')
         setIsShowPanel(JSON.parse(isShowPanelCategories))
         console.log('Categories:', categories);
-    },[])
+    }, [])
 
     useEffect(() => {
         const fetchSearch = async () => {
@@ -151,40 +151,52 @@ export default function Principal() {
                         classClose={'-translate-x-96'}>
                         <UnorderedList className={'bg-white dark:bg-slate-900 space-y-2 border border-slate-200 dark:border-slate-700 my-2 py-2 px-10 md:px-1 lg:px-5 xl:px-10 flex flex-col w-full max-h-full overflow-auto scrollbar-hide rounded-lg shadow-md shadow-gray-200 dark:shadow-gray-800'}>
                             {/* <span className="text-center text-white uppercase text-xl">Categorias</span> */}
+                            {categories.length > 0 ?
+                                (
+                                    categories.map((category, index) => (
+                                        <ListItem key={index}
+                                            className={'relative'}>
+                                            <Button
+                                                onClick={(event) => {
+                                                    if (categoryCurrent == category.name) {
+                                                        categoryRemoveSelected()
+                                                        navigate('../principal')
+                                                    }
+                                                    else {
+                                                        categorySelected(category.name)
+                                                        navigate('./filter-category')
+                                                    }
 
-                            {categories.map((category, index) => (
-                                <ListItem key={index}
-                                    className={'relative'}>
-                                    <Button
-                                        onClick={(event) => {
-                                            if (categoryCurrent == category.name) {
-                                                categoryRemoveSelected()
-                                                navigate('../principal')
-                                            }
-                                            else {
-                                                categorySelected(category.name)
-                                                navigate('./filter-category')
-                                            }
-                                            
 
-                                        }
-                                        }
-                                        text={category.name}
-                                        className={`flex-grow font-bold justify-center items-center duration-300 rounded-md md:py-1 lg:py-2
-                                            text-gray-700 dark:text-white 
-                                            sm:text-xs md:text-sm lg:text-text-base hover:opacity-95 hover:scale-105
-                                            ${categoryCurrent === category.name ?
-                                                // 'from-cyan-400 to-blue-500 scale-110 text-white shadow-md shadow-sky-500 z-10'
-                                                `scale-110 text-white z-10 ${lightColors[index%lightColors.length]} ${deepColors[index%deepColors.length]} shadow-sm shadow-gray-400 dark:shadow-gray-800`
-                                                :
-                                                // 'scale-100 from-cyan-200 to-blue-300 text-slate-600'
-                                                `scale-100 text-slate-600 ${lightColors[index%lightColors.length]} ${deepColors[index%deepColors.length]}`
-                                            }
-                                        `}
-                                    >
-                                    </Button>
-                                </ListItem>
-                            ))}
+                                                }
+                                                }
+                                                text={category.name}
+                                                className={`flex-grow font-bold justify-center items-center duration-300 rounded-md md:py-1 lg:py-2
+                                                text-gray-700 dark:text-white 
+                                                sm:text-xs md:text-sm lg:text-text-base hover:opacity-95 hover:scale-105
+                                                ${categoryCurrent === category.name ?
+                                                        // 'from-cyan-400 to-blue-500 scale-110 text-white shadow-md shadow-sky-500 z-10'
+                                                        `scale-110 text-white z-10 ${lightColors[index % lightColors.length]} ${deepColors[index % deepColors.length]} shadow-sm shadow-gray-400 dark:shadow-gray-800`
+                                                        :
+                                                        // 'scale-100 from-cyan-200 to-blue-300 text-slate-600'
+                                                        `scale-100 text-slate-600 ${lightColors[index % lightColors.length]} ${deepColors[index % deepColors.length]}`
+                                                    }
+                                            `}
+                                            >
+                                            </Button>
+                                        </ListItem>
+                                    ))
+                                )
+                                :
+                                (
+
+                                    <ListItem key={index}
+                                        className={'relative'}>
+                                        Sin Categorias
+                                    </ListItem>
+                                )
+                            }
+
                         </UnorderedList>
                     </FilterPanel>
                 </div>
