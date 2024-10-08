@@ -33,11 +33,23 @@ export const CategoryProvider = ({ children }) => {
     }
 
     // Get all Categories and saved List Category Context
+    // useEffect(() => {
+    //     const fetchCategories = async () => {
+    //         try {
+    //             const res = await AllCategories()
+    //             setCategories(res.data.Categorias)
+    //         } catch (error) {
+    //             console.log(error)
+    //         }
+    //     }
+    //     fetchCategories()
+    // }, [])
     useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const res = await AllCategories()
-                setCategories(res.data.Categorias)
+                // Asegúrate de que res.data.Categorias sea un arreglo
+                setCategories(Array.isArray(res.data.Categorias) ? res.data.Categorias : [])
             } catch (error) {
                 console.log(error)
             }

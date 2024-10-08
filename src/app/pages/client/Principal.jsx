@@ -22,6 +22,10 @@ export default function Principal() {
         sessionStorage.setItem('isShowPanelCategories', JSON.stringify(!isShowPanel))
     }
     
+    if (!categories || !Array.isArray(categories)) {
+        return <div>Cargando...</div> // O cualquier otro mensaje/estado que desees
+    }
+
     useEffect(()=>{
         const isShowPanelCategories = sessionStorage.getItem('isShowPanelCategories')
         setIsShowPanel(JSON.parse(isShowPanelCategories))
