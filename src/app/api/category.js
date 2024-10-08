@@ -1,3 +1,3 @@
 import axios from "./axios"
 
-export const AllCategories = () => axios.get('/category')
+export const AllCategories = () => axios.get('category')
