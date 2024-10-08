@@ -23,7 +23,7 @@ export default function Principal() {
     }
 
     if (!categories || !Array.isArray(categories)) {
-        return <div>Cargando datos :c...</div> // O cualquier otro mensaje/estado que desees
+        return <div>Cargando datos...</div> // O cualquier otro mensaje/estado que desees
     }
 
     useEffect(()=>{
