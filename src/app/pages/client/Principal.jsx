@@ -159,7 +159,7 @@ export default function Principal() {
                                 (
                                     categories.map((category, index) => (
                                         <ListItem key={index}
-                                            className={`${categoryCurrent === category.name && 'order-1'}`}>
+                                            className={`${categoryCurrent === category.name && 'order-first'}`}>
                                             <Button
                                                 onClick={(event) => {
                                                     if (categoryCurrent == category.name) {
