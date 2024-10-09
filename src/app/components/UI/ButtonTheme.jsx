@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 const ButtonTheme = () => {
 
     const [darkMode, setDarkMode] = useState(true)
+
     const toggleDarkMode = () => {
         if (darkMode) {
             (document.documentElement.classList.add("dark"), document.documentElement.classList.remove("light"))
@@ -34,7 +35,6 @@ const ButtonTheme = () => {
                         (<MoonIcon className="fill-blue-200 size-5" />)
                     }
                 </div>
-
             </button>
         </>
     )

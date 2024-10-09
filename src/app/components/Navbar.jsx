@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import {
     EllipsisVerticalIcon,
@@ -46,8 +46,31 @@ const Navbar = () => {
     // Dropdown
     const [isOpenDropdown, setIsOpenDropdown] = useState(false);
     const toggleDropdown = () => {
-        setIsOpenDropdown(!isOpenDropdown);
-    };
+        setIsOpenDropdown(!isOpenDropdown)
+    }
+
+    // const toggleDropdownTrue = () => {
+    //     setIsOpenDropdown(true);
+    // }
+    // const toggleDropdownFalse = () => {
+    //     setIsOpenDropdown(false);
+    // }
+
+    const dropdownRef = useRef(null);
+
+    // Detecta clicks fuera del dropdown para cerrarlo
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpenDropdown(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
 
     //Modal
     const [isOpenModalLogin, setIsOpenModalLogin] = useState(false)
@@ -75,7 +98,6 @@ const Navbar = () => {
                     </div>
                 </Heading>
 
-
                 <div className="flex max-sm:w-1/3 sm:w-1/2 justify-end max-md:relative pr-2">
 
                     <div className='relative inline-block max-lg:w-full'>
@@ -88,37 +110,37 @@ const Navbar = () => {
                                     <span className='text-sm max-sm:text-xs max-sm:text-end sm:text-center'>Administracion</span>
                                 </div>
                             </Heading>
-                            <Button
-                                onClick={toggleDropdown}
-                                className={'items-center'}
-                                text={<EllipsisVerticalIcon className='fill-white size-6 z-10' />}>
+                            <div ref={dropdownRef}>
+                                <Button
+                                    onClick={toggleDropdown}
+                                    className={'items-center'}
+                                    text={<EllipsisVerticalIcon className='fill-white size-6 z-10' />}>
+                                </Button>
+                                <DropDown
+                                    isOpenDropdown={isOpenDropdown}
+                                    className={`bg-gray-300 -bottom-24 rounded-md right-0 max-md:w-full md:w-1/2 lg:w-[150%] z-20`}
+                                    classOpen={`opacity-100 translate-y-0 scale-100`}
+                                    classClose={`scale-0 -translate-y-full translate-x-1/2 opacity-0`}>
+                                    <UnorderedList className={'border border-gray-300 rounded-md'}>
+                                        <ListItem className={'bg-gray-50 border-b rounded-t-md items-center'}>
+                                            <span className='flex-grow'>Tema</span>
+                                            <ButtonTheme />
+                                        </ListItem>
+                                        <ListItem className={'bg-gray-50 border-b group items-center'}>
+                                            <span className='flex-grow'>Administrar</span>
+                                            <div className='relative'>
+                                                <UserIcon className='size-5 fill-gray-700' />
+                                                <Cog6ToothIcon className='group-focus:animate-spin group-hover:animate-spin size-3.5 absolute -bottom-1 right-0 fill-black stroke-gray-50 stroke-2 ' />
+                                            </div>
+                                        </ListItem>
+                                        <ListItem className={'bg-gray-50 rounded-b-md items-center'} onClick={LogoutModal}>
+                                            <span className='flex-grow'>Cerrar Sesion</span>
+                                            <ArrowRightStartOnRectangleIcon className='fill-red-500 size-4 hover:stroke-2' />
+                                        </ListItem>
+                                    </UnorderedList>
+                                </DropDown>
+                            </div>
 
-                            </Button>
-                            <DropDown
-                                isOpenDropdown={isOpenDropdown}
-                                className={`bg-gray-300 -bottom-24 rounded-md right-0 max-md:w-full md:w-1/2 lg:w-[150%] z-20`}
-                                classOpen={`opacity-100 translate-y-0 scale-100`}
-                                classClose={`scale-0 -translate-y-full translate-x-1/2 opacity-0`}>
-                                <UnorderedList
-                                    className={'border border-gray-300 rounded-md'}>
-                                    <ListItem className={'bg-gray-50 border-b rounded-t-md items-center'}>
-                                        <span className='flex-grow'>Tema</span>
-                                        <ButtonTheme />
-                                    </ListItem>
-                                    <ListItem className={'bg-gray-50 border-b group items-center'}>
-                                        <span className='flex-grow'>Administrar</span>
-                                        <div className='relative'>
-                                            <UserIcon className='size-5 fill-gray-700' />
-                                            <Cog6ToothIcon className='group-focus:animate-spin group-hover:animate-spin size-3.5 absolute -bottom-1 right-0 fill-black stroke-gray-50 stroke-2 ' />
-                                        </div>
-                                        {/* <KeyIcon className='fill-yellow-400 size-4' /> */}
-                                    </ListItem>
-                                    <ListItem className={'bg-gray-50 rounded-b-md items-center'} onClick={LogoutModal}>
-                                        <span className='flex-grow'>Cerrar Sesion</span>
-                                        <ArrowRightStartOnRectangleIcon className='fill-red-500 size-4 hover:stroke-2' />
-                                    </ListItem>
-                                </UnorderedList>
-                            </DropDown>
                         </div>
                     </div>
                 </div>

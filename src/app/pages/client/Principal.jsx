@@ -85,7 +85,7 @@ export default function Principal() {
         "bg-cyan-300",
         "bg-sky-300",
         "bg-fuchsia-300",
-        "bg-lime-300"
+        "bg-lime-300",
     ];
 
     return (
@@ -159,7 +159,7 @@ export default function Principal() {
                                 (
                                     categories.map((category, index) => (
                                         <ListItem key={index}
-                                            className={'relative'}>
+                                            className={`${categoryCurrent === category.name && 'order-1'}`}>
                                             <Button
                                                 onClick={(event) => {
                                                     if (categoryCurrent == category.name) {
