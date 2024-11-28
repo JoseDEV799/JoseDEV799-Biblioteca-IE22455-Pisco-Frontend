@@ -8,7 +8,11 @@ export default {
   theme: {
     extend: {
       screens: {
-        '4k-screen' : '1900px'
+        'desktop' : '1440px',
+        'laptop-large' : '1024px',
+        'laptop-standar' : '768px',
+        'tablet' : '425px',
+        'mobile' : '320px'
       },
       colors: {
         red: {

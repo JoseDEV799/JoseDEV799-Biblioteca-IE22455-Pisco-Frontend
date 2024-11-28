@@ -1,33 +1,25 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./app/components/Layout";
-import Principal from "./app/pages/client/Principal";
-import Index from "./app/pages/client/Index";
-import FilterCategory from './app/pages/client/FilterCategory';
-import { AuthProvider } from "./app/context/AuthContext";
-import { CategoryProvider } from "./app/context/CategoryContext";
-import { BooksProvider } from "./app/context/BooksContext";
-import ReadBook from "./app/pages/client/ReadBook";
+import Admin from '../src/app/pages/admin/index'
+import UsuariosAdmin from "./app/pages/admin/UsuariosAdmin";
+import CategoriasAdmin from "./app/pages/admin/CategoriasAdmin";
+import LibrosAdmin from "./app/pages/admin/LibrosAdmin";
 
 function App() {
   return (
     <>
-      <AuthProvider>
-        <BooksProvider>
-          <CategoryProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Layout />}>
-                  <Route path="/principal" element={<Principal />}>
-                    <Route index element={<Index/>}/>
-                    <Route path='filter-category' element={<FilterCategory/>} />
-                  </Route>
-                  <Route path='/read-book' element={<ReadBook/>} />
-                </Route>
-              </Routes>
-            </BrowserRouter>
-          </CategoryProvider>
-        </BooksProvider>
-      </AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route>
+
+          </Route>
+          <Route path="/ie22455/biblioteca/admin" element={<Admin/>}>
+            <Route index element={<UsuariosAdmin/>}/>
+            <Route path="categorias" element={<CategoriasAdmin/>}/>
+            <Route path="libros" element={<LibrosAdmin/>}/>
+          </Route>
+        </Routes>
+      </BrowserRouter>
 
       {/* <BooksProvider>
         <CategoryProvider>

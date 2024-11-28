@@ -1,15 +1,21 @@
-const DropDown = ({isOpenDropdown, className, classOpen, classClose, children, onBlur, onFocus}) => {
+const Dropdown = ({ state = false, className, width, height, children }) => {
 
     return (
-        <>
-            <div className={`${className} transition-all ease-out duration-300 absolute shadow-md shadow-gray-200
-            ${isOpenDropdown ? `${classOpen}` : `${classClose}`}
+        <div
+            className={`
+                transition-all duration-500 ease-out absolute rounded-md z-10
+                ${className}
+                ${state ? 'opacity-100 pointer-events-auto ' : 'opacity-0 pointer-events-none'}
             `}
-            onBlur={onBlur} onFocus={onFocus}>
-                {children}
-            </div>
-        </>
+
+            style={{
+                width: `${width}px`,
+                height: `${height}px`,
+            }}
+        >
+            {children}
+        </div>
     )
 }
 
-export default DropDown
+export default Dropdown

@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+// import { useNavigate } from "react-router-dom"
 import { loginRequest, logoutRequest, verifyTokenRequest } from "../api/auth";
 import Cookies from 'js-cookie';
 
@@ -16,6 +17,8 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
+
+    // const navigate = useNavigate()
 
     //* Method SignUp and SignIn
     const signup = async (user) => {
@@ -59,6 +62,7 @@ export const AuthProvider = ({ children }) => {
             if (!token) {
                 setIsAuthenticated(false);
                 setLoading(false);
+                // navigate('/')
                 return;
             } else {
                 Cookies.set('token', token);
