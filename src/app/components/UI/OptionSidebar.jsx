@@ -22,7 +22,7 @@ const OptionSidebar = ({ text, route, iconCompact, isHovered, className }) => {
                 transition-all duration-300
                 ${isHovered ? 'laptop-standar:opacity-100 laptop-standar:scale-100' : 'laptop-standar:opacity-0 laptop-standar:scale-0'}
             `}>
-                <span className={` flex justify-between tablet:w-full laptop-standar:w-auto
+                <span className={`flex justify-between tablet:w-full laptop-standar:w-auto
                     
                 `}>
                     {React.cloneElement(iconCompact, {
@@ -49,8 +49,7 @@ const OptionSidebar = ({ text, route, iconCompact, isHovered, className }) => {
                 ${isHovered ? 'opacity-0 scale-0' : 'opacity-100 scale-100'}
             `}>
                 {React.cloneElement(iconCompact, {
-                    className: `size-6 transition-all duration-300 ${isRoute ? 'fill-blue-500' : 'fill-white'
-                        }`,
+                    className: `size-6 transition-all duration-300 ${isRoute ? 'fill-blue-500' : 'fill-white'}`,
                 })}
             </div>
         </div>

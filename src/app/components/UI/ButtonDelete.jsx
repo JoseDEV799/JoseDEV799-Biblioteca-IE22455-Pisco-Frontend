@@ -10,7 +10,7 @@ const ButtonDelete = ({ onClick, type = 'button' }) => {
                 text-base text-white 
                 bg-red-600 hover:bg-red-500
                 active:scale-105"
-                onClick={() => onClick()}>
+                onClick={onClick}>
                 <MdDelete className="size-5 mr-1"/>
                 Eliminar
             </button>

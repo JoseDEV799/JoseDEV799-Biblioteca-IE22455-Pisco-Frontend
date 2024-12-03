@@ -19,7 +19,9 @@ const TableAdmin = ({
     onClickDelete,
     itemsPerPage = 5, // Elementos por página
     cellTypes = {}, // { age: 'number', date: 'date', active: 'boolean' }
-    extraOptions
+    extraOptions,
+    extraHeaders,
+    extraData
 }) => {
     // Estados para ordenamiento, paginación y filtros
     const [sortConfig, setSortConfig] = useState({ field: '', direction: '' });
@@ -184,7 +186,7 @@ const TableAdmin = ({
                                                     className="transition-all duration-300 active:scale-105"
                                                 >
                                                     {React.cloneElement(iconEdit, {
-                                                        className: "size-6 mr-2 fill-yellow-300 hover:fill-yellow-400"
+                                                        className: "size-6 mr-2 fill-yellow-300 hover:fill-yellow-400 stroke-yellow-300 hover:stroke-yellow-400"
                                                     })}
                                                 </button>
                                             )}
@@ -195,11 +197,11 @@ const TableAdmin = ({
                                                     className="transition-all duration-300 active:scale-105"
                                                 >
                                                     {React.cloneElement(iconDelete, {
-                                                        className: "size-6 mr-2 fill-red-600 hover:fill-red-700"
+                                                        className: "size-6 mr-2 fill-red-600 hover:fill-red-700 stroke-red-600 hover:stroke-red-700"
                                                     })}
                                                 </button>
                                             )}
-                                            {extraOptions(row)}
+                                            {extraOptions && typeof extraOptions === 'function' && extraOptions(row)}
                                         </td>
                                     )}
                                 </tr>

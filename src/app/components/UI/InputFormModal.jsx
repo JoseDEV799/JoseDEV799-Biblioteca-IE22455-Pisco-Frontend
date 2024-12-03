@@ -1,16 +1,36 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 
-const InputFormModal = ({ title, onChange, type, value, disabled = false, optionsSelect = [], optionValue, optionText, placeholderText, error, name }) => {
+const InputFormModal = ({
+    title,
+    onChange,
+    type,
+    value,
+    disabled = false,
+    optionsSelect = [],
+    optionValue,
+    optionText,
+    optionNull,
+    placeholderText,
+    error,
+    name,
+    buttonTextFile = 'Subir archivo',
+    iconUpFile,
+    className,
+    htmlFor,
+    accessKey
+}) => {
 
+    // Intercalar entre mostrar u ocultar contraseña
     const [typeInput, setTypeInput] = useState(true)
     const handleTypeInput = () => {
         setTypeInput(!typeInput)
     }
+
     return (
         <div className="">
             <label
-                className="w-full">
+                className={`grid w-full ${type == 'file' ? 'text-center' : 'text-start'} `}>
                 {title}
             </label>
 
@@ -44,8 +64,12 @@ const InputFormModal = ({ title, onChange, type, value, disabled = false, option
                         )
                     case 'options':
                         return (
-                            <select value={value} onChange={onChange}
+                            <select value={value} 
+                                onChange={onChange}
                                 className="w-full rounded-md shadow-sm border border-gray-200 py-2 pl-2">
+                                {optionNull &&
+                                    <option value={null}>{optionNull}</option>
+                                }
                                 {optionsSelect.map((option, index) => (
                                     <option key={index} value={option[optionValue]}
                                         className="w-full shadow-sm border border-gray-200 py-2 pl-2">
@@ -65,6 +89,29 @@ const InputFormModal = ({ title, onChange, type, value, disabled = false, option
                             <p className="w-full italic text-gray-600">
                                 {value}
                             </p>
+                        )
+                    case 'file':
+                        return (
+                            <div className="flex w-full h-full justify-center items-center">
+                                <label
+                                    htmlFor={htmlFor}
+                                    className={`${className} flex items-center justify-center cursor-pointer w-52 text-center bg-blue-500 text-white py-2 px-4 rounded-md transition-all duration-300 hover:bg-blue-600 ${className}`}>
+
+                                    {React.cloneElement(iconUpFile, {
+                                        className: "size-6 mr-2 fill-gray-200 hover:fill-gray-300 stroke-gray-200 hover:stroke-gray-300"
+                                    })}
+                                    <p>
+                                        {buttonTextFile}
+                                    </p>
+                                </label>
+                                <input
+                                    type="file"
+                                    id={htmlFor}
+                                    key={accessKey}
+                                    onChange={onChange}
+                                    className="hidden"
+                                />
+                            </div>
                         )
                     default:
                         return (

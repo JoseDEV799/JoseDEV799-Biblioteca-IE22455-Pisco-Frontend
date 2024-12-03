@@ -7,7 +7,7 @@ export const registrarUsuario = user => axios.post('/admin/user/register', user)
 
 export const modificarUsuario = (id, data) => axios.post(`/admin/user/update/${id}`, data)
 
-export const eliminarUsuario = (id) => axios.post('/admin/user/eliminar', { id: id})
+export const eliminarUsuario = (id) => axios.post('/admin/user/eliminar', { id: id })
 
 export const cambiarContraseñaUsuario = (data) => axios.post('/admin/user/change/password', data)
 

@@ -7,9 +7,9 @@ const SidebarUserData = ({ className, isHovered }) => {
 
     const [userCurrent, setUserCurrent] = useState(null)
 
-    useEffect(() => {
-        console.log('Hola');
-    }, [])
+    // useEffect(() => {
+    //     console.log('Hola');
+    // }, [])
 
     return (
         <>

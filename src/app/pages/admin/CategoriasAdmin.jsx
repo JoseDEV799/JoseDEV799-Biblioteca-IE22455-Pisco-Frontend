@@ -1,312 +1,191 @@
 import { useEffect, useState } from "react";
-import { FaUserEdit, FaUserMinus } from "react-icons/fa";
+import { MdEdit, MdDelete } from "react-icons/md";
 import TitleTableAdmin from "../../components/UI/TitleTableAdmin"
 import ButtonAddItemTable from "../../components/UI/ButtonAddItemTable"
 import TableAdmin from "../../components/TableAdmin"
 import ModalForm from "../../components/ModalForm";
 import InputFormModal from "../../components/UI/InputFormModal";
-import { obtenerUsuarios, registrarUsuario, modificarUsuario, eliminarUsuario, cambiarContraseñaUsuario } from "../../api/user";
-import { PiPassword } from "react-icons/pi";
+import ButtonSidebar from "../../components/UI/ButtonSidebar";
+import { obtenerCategoriasAdmin, crearCategoriaAdmin, modificarCategoriaAdmin, eliminarCategoriaAdmin } from "../../api/category";
+import { useOutletContext } from 'react-router-dom';
 
 const CategoriasAdmin = () => {
+    // Sidebar
+    const { sidebarShow, setSidebarShow } = useOutletContext();
+    const handleSidebar = () => setSidebarShow(!sidebarShow)
 
     // Modal
-    const [userModal, setUserModal] = useState(false)
-    const [titleUserModal, setTitleUserModal] = useState('')
+    const [categoriaModal, setCategoriaModal] = useState(false)
+    const [titleCategoriaModal, setTitleCategoriaModal] = useState('')
     const [createOption, setCreateOption] = useState(false)
     const [updateOption, setUpdateOption] = useState(false)
     const [deleteOption, setDeleteOption] = useState(false)
-    const [passwordInput, setPasswordInput] = useState(false)
-
-    // Modal Delete
-    const [userChangePasswordModal, setUserChangePasswordModal] = useState(false)
 
     // Datos
-    const [usuarios, setUsuarios] = useState([])
+    const [categorias, setCategorias] = useState([])
+    const [errors, setErrors] = useState([])
     useEffect(() => {
         const fetch = async () => {
-            const response = await obtenerUsuarios()
-            console.log(response.data);
-
-            setUsuarios(response.data)
+            const response = await obtenerCategoriasAdmin()
+            setCategorias(response.data)
         }
         fetch()
     }, [])
 
     // Formulario
     const [id, setId] = useState('')
-    const [nombres, setNombres] = useState('')
-    const [apellidos, setApellidos] = useState('')
-    const [dni, setDNI] = useState('')
-    const [correo, setCorreo] = useState('')
-    const [rol, setRol] = useState('')
-    const [password, setPassword] = useState('')
+    const [nombre, setNombre] = useState('')
+    const [abreviatura, setAbreviatura] = useState('')
 
     //Actualizar Datos
-    // const handleID = (id) => setId(id) //Sin uso, de momento.
-    const handleNombres = (event) => setNombres(event.target.value)
-    const handleApellidos = (event) => setApellidos(event.target.value)
-    const handleDNI = (event) => setDNI(event.target.value)
-    const handleCorreo = (event) => setCorreo(event.target.value)
-    const handleRol = (event) => setRol(event.target.value)
-    const handlePassword = (event) => setPassword(event.target.value)
+    const handleNombre = (event) => setNombre(event.target.value)
+    const handleAbreviatura = (event) => setAbreviatura(event.target.value)
 
-    // Agregar Usuario
-    const AgregarUsuario = async (e) => {
+    // Agregar Categoria
+    const AgregarCategoria = async (e) => {
         e.preventDefault()
         const formData = new FormData()
-        formData.append('nombres', nombres)
-        formData.append('apellidos', apellidos)
-        formData.append('dni', dni)
-        formData.append('correo', correo)
-        formData.append('rol', rol)
-        formData.append('password', password)
+        if (nombre.trim()) formData.append('nombre', nombre);
+        if (abreviatura.trim()) formData.append('abreviatura', abreviatura);
         try {
-            const response = await registrarUsuario(formData)
-            setUsuarios([...usuarios, response.data.user])
-            console.log(response);
-            closeUserModal()
+            const response = await crearCategoriaAdmin(formData)
+            setCategorias([...categorias, response.data.categoria])
+            closeCategoriaModal()
         } catch (error) {
-            console.log(error);
+            const errorMessages = error
+            setErrors(errorMessages.response.data.error)
         }
     }
 
     // Modificar Usuario
-    const ActualizarUsuario = async (e) => {
+    const ActualizarCategoria = async (e) => {
         e.preventDefault()
         const formData = new FormData()
-        formData.append('nombres', nombres)
-        formData.append('apellidos', apellidos)
-        formData.append('dni', dni)
-        formData.append('correo', correo)
-        formData.append('rol', rol)
+        formData.append('id', id)
+        formData.append('nombre', nombre)
+        formData.append('abreviatura', abreviatura)
         try {
-            const response = await modificarUsuario(id, formData)
-            setUsuarios((prevUsuarios) =>
-                prevUsuarios.map((user) =>
-                    user._id === id ? { ...user, ...response.data.user } : user
+            const response = await modificarCategoriaAdmin(id, formData)
+            setCategorias((prevCategoria) =>
+                prevCategoria.map((categoria) =>
+                    categoria._id === id ? { ...categoria, ...response.data.categoria } : categoria
                 )
             )
-            console.log(response);
-            closeUserModal()
+            closeCategoriaModal()
         } catch (error) {
-            console.log(error);
+            const errorMessages = error
+            setErrors(errorMessages.response.data.error)
         }
     }
 
     // Eliminar Usuario
-    const EliminarUsuarioAdmin = async (e) => {
+    const EliminarCategoriaAdmin = async (e) => {
         try {
             e.preventDefault()
-            await eliminarUsuario(id)
-            setUsuarios((prevUsuarios) =>
-                prevUsuarios.filter((user) => user._id !== id)
+            await eliminarCategoriaAdmin(id)
+            setCategorias((prevCategoria) =>
+                prevCategoria.filter((categoria) => categoria._id !== id)
             )
-            closeUserModal()
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
-
-    const CambiarContraseña = async(e) => {
-        try {
-            e.preventDefault()
-            const formData = new FormData()
-            formData.append('id', id)
-            formData.append('password', password)
-            await cambiarContraseñaUsuario(formData)
-            closeChangePasswordModal()
+            closeCategoriaModal()
         } catch (error) {
             console.log(error);
         }
     }
 
     // Modal Agregar Usuario
-    const showAddUserModal = () => {
-        setTitleUserModal('Agregar Usuario')
+    const showAddCategoriaModal = () => {
+        setTitleCategoriaModal('Agregar Categoria')
+        setErrors([])
         setUpdateOption(false)
         setDeleteOption(false)
         setCreateOption(true)
-        setUserModal(true)
-        setPasswordInput(false)
-        setNombres('')
-        setApellidos('')
-        setCorreo('')
-        setDNI('')
-        setRol('Admin')
-        setPassword('')
+        setCategoriaModal(true)
+        setNombre('')
+        setAbreviatura('')
     }
 
     // Modal Modificar Usuario
-    const showUpdateUserModal = (row) => {
-        setTitleUserModal('Modificar Usuario')
-        setPasswordInput(true)
+    const showUpdateCategoriaModal = (row) => {
+        setTitleCategoriaModal('Modificar Categoria')
+        setErrors([])
         setCreateOption(false)
         setDeleteOption(false)
         setUpdateOption(true)
-        setUserModal(true)
+        setCategoriaModal(true)
         setId(row._id)
-        setNombres(row.nombres)
-        setApellidos(row.apellidos)
-        setCorreo(row.correo)
-        setDNI(row.dni)
-        setRol(row.rol)
-        setPassword(row.password)
+        setNombre(row.nombre)
+        setAbreviatura(row.abreviatura)
     }
 
     // Modal Eliminar Usuario
-    const showDeleteUserModal = (row) => {
-        setTitleUserModal('Eliminar Usuario')
-        setPasswordInput(true)
+    const showDeleteCategoriaModal = (row) => {
+        setTitleCategoriaModal('Eliminar Categoria')
+        setErrors([])
         setUpdateOption(false)
         setCreateOption(false)
         setDeleteOption(true)
-        setUserModal(true)
+        setCategoriaModal(true)
         setId(row._id)
-        setNombres(row.nombres)
-        setApellidos(row.apellidos)
-        setCorreo(row.correo)
-        setDNI(row.dni)
-        setRol(row.rol)
+        setNombre(row.nombre)
+        setAbreviatura(row.abreviatura)
     }
 
-    const showChangePasswordModal = (row) => {
-        setId(row._id)
-        setNombres(row.nombres)
-        setApellidos(row.apellidos)
-        setPassword('')
-        setUserChangePasswordModal(true)
-    }
 
-    const closeUserModal = () => setUserModal(false)
-    const closeChangePasswordModal = () => setUserChangePasswordModal(false)
-
-    const optionsSelect = [
-        {
-            value: 'Admin',
-            text: 'Administrador'
-        },
-        {
-            value: 'Estudiante',
-            text: 'Estudiante'
-        }
-    ]
+    const closeCategoriaModal = () => setCategoriaModal(false)
 
     return (
         <>
             <div className="flex justify-between w-full items-center mb-2">
-                <TitleTableAdmin title={'Usuarios'} />
-                <ButtonAddItemTable text={'Agregar Usuario'} onClick={showAddUserModal} />
+                <ButtonSidebar
+                    isShow={sidebarShow}
+                    onClick={handleSidebar} />
+                <TitleTableAdmin title={'Categoria'} />
+                <ButtonAddItemTable text={'Agregar Categoria'} onClick={showAddCategoriaModal} />
             </div>
+
             <TableAdmin
-                headers={['Nombres', 'Apellidos', 'Correo', 'DNI', 'Rol']}
-                headerFields={['nombres', 'apellidos', 'correo', 'dni', 'rol']}
-                rows={usuarios}
+                headers={['Nombre', 'Abreviatura']}
+                headerFields={['nombre', 'abreviatura']}
+                rows={categorias}
                 editOption
                 deleteOption
-                titleUpdateButton={'Modificar Usuario'}
-                titleDeleteButton={'Eliminar Usuario'}
-                iconEdit={<FaUserEdit />}
-                iconDelete={<FaUserMinus />}
-                onClickEdit={showUpdateUserModal}
-                onClickDelete={showDeleteUserModal}
-                extraOptions={
-                    (row) =>
-                        <>
-                            <button onClick={() => showChangePasswordModal(row)}
-                                title="Cambiar contraseña"
-                                className="transition-all duration-300 active:scale-105">
-                                <PiPassword className="size-6 mr-2 fill-blue-600 hover:fill-blue-700" />
-                            </button>
-                        </>
-                }
+                titleUpdateButton={'Modificar Categoria'}
+                titleDeleteButton={'Eliminar Categoria'}
+                iconEdit={<MdEdit />}
+                iconDelete={<MdDelete />}
+                onClickEdit={showUpdateCategoriaModal}
+                onClickDelete={showDeleteCategoriaModal}
             />
 
             <ModalForm
                 options
-                title={titleUserModal}
-                show={userModal}
+                title={titleCategoriaModal}
+                show={categoriaModal}
                 isAdd={createOption}
                 isUpdate={updateOption}
                 isDelete={deleteOption}
                 onSubmit={
-                    createOption ? AgregarUsuario :
-                        (updateOption ? ActualizarUsuario : EliminarUsuarioAdmin)
+                    createOption ? AgregarCategoria :
+                        (updateOption ? ActualizarCategoria : EliminarCategoriaAdmin)
                 }
-                onClose={closeUserModal}
-                onClickCancel={closeUserModal}>
+                onClose={closeCategoriaModal}
+                onClickCancel={closeCategoriaModal}>
 
                 <InputFormModal
                     type={deleteOption ? 'delete' : 'text'}
                     title={'Nombre'}
-                    value={nombres}
-                    onChange={handleNombres} />
+                    value={nombre}
+                    onChange={handleNombre}
+                    name={'nombre'}
+                    error={errors} />
 
                 <InputFormModal
                     type={deleteOption ? 'delete' : 'text'}
-                    title={'Apellidos'}
-                    value={apellidos}
-                    onChange={handleApellidos} />
-
-                <InputFormModal
-                    type={deleteOption ? 'delete' : 'text'}
-                    title={'DNI'}
-                    value={dni}
-                    onChange={handleDNI} />
-
-                <InputFormModal
-                    type={deleteOption ? 'delete' : 'text'}
-                    title={'Correo'}
-                    value={correo}
-                    onChange={handleCorreo} />
-
-                <InputFormModal
-                    type={deleteOption ? 'delete' : 'options'}
-                    optionsSelect={optionsSelect}
-                    optionValue={'value'}
-                    optionText={'text'}
-                    title={'Rol'}
-                    value={rol}
-                    onChange={handleRol} />
-
-                {!passwordInput &&
-                    <InputFormModal
-                        title={'Contraseña'}
-                        type={'password'}
-                        value={password}
-                        onChange={handlePassword} />
-                }
-            </ModalForm>
-
-            <ModalForm
-                options
-                title={'Cambiar contraseña'}
-                addTitleButton={'Confirmar'}
-                isAdd={true}
-                show={userChangePasswordModal}
-                onSubmit={CambiarContraseña}
-                onClose={closeChangePasswordModal}
-                onClickCancel={closeChangePasswordModal}>
-
-                <InputFormModal
-                    type={'onlyRead'}
-                    title={'Nombre'}
-                    value={nombres}
-                    onChange={handleNombres} />
-
-                <InputFormModal
-                    type={'onlyRead'}
-                    title={'Apellidos'}
-                    value={apellidos}
-                    onChange={handleApellidos} />
-
-                <InputFormModal
-                    title={'Contraseña'}
-                    type={'password'}
-                    value={password}
-                    placeholderText={'Nueva contraseña'}
-                    onChange={handlePassword} />
+                    title={'Abreviatura'}
+                    value={abreviatura}
+                    onChange={handleAbreviatura}
+                    name={'abreviatura'}
+                    error={errors} />
 
             </ModalForm>
         </>

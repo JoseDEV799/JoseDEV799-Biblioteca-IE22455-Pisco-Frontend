@@ -1,13 +1,14 @@
 import axios from "./axios"
 
-export const allBooks = () => axios.get('books')
+// Cliente
+export const obtenerLibrosCliente = ({ idcategory = '' }) => axios.get('/cliente/book/books', {idcategory : idcategory})
 
-export const bookCategory = (customParam) => axios.post('books/category', customParam)
 
-export const registerBook = book => axios.post('books/store',book)
+// Admin
+export const obtenerLibrosAdmin = () => axios.get('/admin/book/books')
 
-export const updateBook = book => axios.post('books/store',book)
+export const agregarLibroAdmin = (libro) => axios.post('/admin/book/register', libro)
 
-export const deleteBook = id => axios.post('books/store',id)
+export const modificarLibroAdmin = (idlibro, data) => axios.post(`/admin/book/${idlibro}`, data)
 
-export const searchBook = searchBookInput => axios.post('books/search', searchBookInput)
+export const eliminarLibroAdmin = (id) => axios.post('/admin/book/eliminar', { id: id })

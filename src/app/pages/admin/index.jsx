@@ -1,15 +1,17 @@
 import { Outlet } from "react-router-dom"
 import Container from "../../components/Container"
-import NavbarAdmin from "../../components/NavbarAdmin"
 import SidebarAdmin from "../../components/SidebarAdmin"
 import OptionSidebar from "../../components/UI/OptionSidebar"
 import { FaUsers } from "react-icons/fa";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import { IoLibrary } from "react-icons/io5";
+import { GiExitDoor } from "react-icons/gi";
 import LogoColegio from "../../components/UI/LogoColegio"
 import SidebarTitle from "../../components/UI/SidebarTitle"
 import SidebarUserData from "../../components/UI/SidebarUserData"
 import { useState } from "react"
+import ReturnPageMainSidebar from "../../components/UI/ReturnPageMainSidebar"
+import ButtonSidebar from "../../components/UI/ButtonSidebar"
 
 const Admin = () => {
 
@@ -29,17 +31,21 @@ const Admin = () => {
                         widhtExtend={250}
                         widthCompact={80}
                         isShow={sidebarShow}>
-
                         {(isHovered) => (
                             <>
+                                <ButtonSidebar
+                                    isShow={sidebarShow}
+                                    onClick={()=>setSidebarShow(false)}
+                                    className={`${sidebarShow ? 'absolute z-10 right-2 top-5' : 'hidden'}`} />
+
                                 <SidebarTitle
-                                    logo={<LogoColegio/>}
+                                    logo={<LogoColegio />}
                                     isHovered={isHovered}
                                     tituloSuperior={'BIBLIOTECA DIGITAL'}
                                     tituloInferior={'JOSE DE LA TORRE UGARTE'} />
 
-                                <SidebarUserData 
-                                    isHovered={isHovered}/>
+                                <SidebarUserData
+                                    isHovered={isHovered} />
 
                                 <OptionSidebar
                                     text={'Usuarios'}
@@ -61,13 +67,19 @@ const Admin = () => {
                                     isHovered={isHovered}
                                     iconCompact={<IoLibrary />}
                                 />
+
+                                <ReturnPageMainSidebar
+                                    text={'Salir del administrador'}
+                                    route={'/principal'}
+                                    isHovered={isHovered}
+                                    iconCompact={<GiExitDoor />} />
                             </>
                         )}
 
                     </SidebarAdmin>
 
                     <div className="flex-1 bg-gray-100 h-screen overflow-y-auto w-full  max-laptop-standar:pl-4 pl-24  py-4 pr-4">
-                        <Outlet context={{ sidebarShow, setSidebarShow }}/>
+                        <Outlet context={{ sidebarShow, setSidebarShow }} />
                     </div>
 
                 </div>

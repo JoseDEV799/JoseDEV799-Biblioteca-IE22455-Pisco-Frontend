@@ -4,14 +4,20 @@ import Admin from '../src/app/pages/admin/index'
 import UsuariosAdmin from "./app/pages/admin/UsuariosAdmin";
 import CategoriasAdmin from "./app/pages/admin/CategoriasAdmin";
 import LibrosAdmin from "./app/pages/admin/LibrosAdmin";
+import LoginPage from "./app/pages/client/LoginClient";
+import Cliente from "./app/pages/client";
+import PrincipalClient from "./app/pages/client/PrincipalClient";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route>
-
+          <Route path="/" element={<Cliente/>}>
+              <Route index element={<PrincipalClient/>}/>
+              <Route />
+              <Route />
+              <Route path="login" element={<LoginPage/>}/>
           </Route>
           <Route path="/ie22455/biblioteca/admin" element={<Admin/>}>
             <Route index element={<UsuariosAdmin/>}/>

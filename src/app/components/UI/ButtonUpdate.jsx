@@ -10,7 +10,7 @@ const ButtonUpdate = ({ onClick }) => {
                 text-base text-white
                 bg-yellow-500 hover:bg-yellow-400
                 active:scale-105"
-                onClick={() => onClick()}>
+                onClick={onClick}>
                 <FaSave className="size-5 mr-1"/>
                 Guardar
             </button>

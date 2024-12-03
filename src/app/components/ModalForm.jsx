@@ -4,15 +4,15 @@ import ButtonCancel from "./UI/ButtonCancel";
 import ButtonUpdate from "./UI/ButtonUpdate";
 import ButtonDelete from "./UI/ButtonDelete";
 
-const ModalForm = ({ show, children, onClose, title, options, isAdd, isUpdate, isDelete, onClickCancel, onSubmit, addTitleButton = 'Agregar' }) => {
+const ModalForm = ({ className, show, children, onClose, title, options, isAdd, isUpdate, isDelete, onClickCancel, onSubmit, addTitleButton = 'Agregar', isLogin }) => {
     return (
         <div className={`fixed inset-0 flex justify-center items-center backdrop-blur-sm ${show ? 'opacity-100 z-10' : 'opacity-0 -z-10'}`}>
-            <div className="bg-gray-100 relative w-96 h-max rounded-md shadow-lg border p-4 overflow-y-auto">
+            <div className={`bg-gray-100 relative ${className} w-96 max-h-screen rounded-md shadow-lg border p-4 overflow-y-auto`}>
                 <div className="border-b pb-2">
                     <span className="uppercase">
                         {title}
                     </span>
-                    <button onClick={() => onClose()} className="group absolute right-4 top-4" title="Cerrar">
+                    <button onClick={() => onClose()} className={`group absolute right-4 top-4 ${isLogin && 'hidden'}`} title="Cerrar">
                         <IoClose className="size-6 group-hover:fill-red-600 transition-all duration-300" />
                     </button>
                 </div>

@@ -34,8 +34,6 @@ const UsuariosAdmin = () => {
     useEffect(() => {
         const fetch = async () => {
             const response = await obtenerUsuarios()
-            console.log(response.data);
-
             setUsuarios(response.data)
         }
         fetch()
@@ -72,7 +70,6 @@ const UsuariosAdmin = () => {
         try {
             const response = await registrarUsuario(formData)
             setUsuarios([...usuarios, response.data.user])
-            console.log(response);
             closeUserModal()
         } catch (error) {
             const errorMessages = error
@@ -85,10 +82,10 @@ const UsuariosAdmin = () => {
         e.preventDefault()
         const formData = new FormData()
         formData.append('id', id)
-        formData.append('nombres', nombres)
-        formData.append('apellidos', apellidos)
-        formData.append('dni', dni)
-        formData.append('correo', correo)
+        if (nombres.trim()) formData.append('nombres', nombres);
+        if (apellidos.trim()) formData.append('apellidos', apellidos);
+        if (dni.trim()) formData.append('dni', dni);
+        if (correo.trim()) formData.append('correo', correo);
         formData.append('rol', rol)
         try {
             const response = await modificarUsuario(id, formData)
@@ -97,7 +94,6 @@ const UsuariosAdmin = () => {
                     user._id === id ? { ...user, ...response.data.user } : user
                 )
             )
-            console.log(response);
             closeUserModal()
         } catch (error) {
             const errorMessages = error
