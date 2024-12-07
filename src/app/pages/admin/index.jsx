@@ -20,13 +20,13 @@ const Admin = () => {
     return (
         <>
             <Container>
-                <div className="fixed inset-0 top-0 bottom-0 left-0 right-0 bg-black tablet:hidden max-tablet:block max-tablet:z-50">
+                {/* <div className="fixed inset-0 top-0 bottom-0 left-0 right-0 bg-black tablet:hidden max-tablet:block max-tablet:z-50">
                     <div className="flex flex-col w-full h-full items-center justify-center">
                         <span className="text-white"> Contenido no disponible </span>
                         <span className="text-white"> Ingrese mediante un dispositivo compatible</span>
                     </div>
-                </div>
-                <div className="max-mobile:hidden bg-gray-50 h-full w-full flex relative">
+                </div> */}
+                <div className="bg-gray-50 h-full w-full flex relative">
                     <SidebarAdmin
                         widhtExtend={250}
                         widthCompact={80}

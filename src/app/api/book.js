@@ -3,6 +3,7 @@ import axios from "./axios"
 // Cliente
 export const obtenerLibrosCliente = ({ idcategory = '' }) => axios.get('/cliente/book/books', {idcategory : idcategory})
 
+export const obtenerLibrosPorCategoria = () => axios.get('/cliente/book/books/category')
 
 // Admin
 export const obtenerLibrosAdmin = () => axios.get('/admin/book/books')

@@ -3,7 +3,7 @@ import { IoMdSettings } from "react-icons/io";
 const NavbarUsuario = ({ nombre = 'Invitado', rol = '', onClick, children }) => {
 
     return (
-        <div className="grid col-span-1 w-full">
+        <div className="flex w-max">
             <div className="flex w-full h-full mobile:px-3">
                 <div className="flex flex-col w-full h-full items-end justify-center">
                     <span className={` text-white leading-3 font-semibold

@@ -18,7 +18,7 @@ const OptionSidebar = ({ text, route, iconCompact, isHovered, className }) => {
         >
             {/* Contenedor del texto */}
             <div className={`
-                absolute inset-0 flex items-center tablet:px-5 laptop-standar:px-0 laptop-standar:justify-center
+                absolute inset-0 flex items-center max-laptop-standar:px-5 laptop-standar:px-0 laptop-standar:justify-center
                 transition-all duration-300
                 ${isHovered ? 'laptop-standar:opacity-100 laptop-standar:scale-100' : 'laptop-standar:opacity-0 laptop-standar:scale-0'}
             `}>

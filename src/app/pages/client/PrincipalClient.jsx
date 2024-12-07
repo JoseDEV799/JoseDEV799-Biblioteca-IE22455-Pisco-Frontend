@@ -2,12 +2,20 @@ import { useEffect, useState } from "react"
 import CarouselCategories from "../../components/CarouselCategories"
 import ButtonCategoryFilter from "../../components/UI/ButtonCategoryFilter"
 import { obtenerCategoriasCliente } from "../../api/category"
-import { obtenerLibrosCliente } from "../../api/book"
+import { obtenerLibrosCliente, obtenerLibrosPorCategoria } from "../../api/book"
 import ImagenSinPortada from '../../assets/images/sin_portada.jpg'
 import LibroCardSelect from "../../components/UI/LibroCardSelect"
+import SearchBooksClient from "../../components/UI/SearchBooksClient"
+import { useNavigate } from 'react-router-dom'
+import ButtonTheme from "../../components/UI/ButtonTheme"
+import CarouselBooks from "../../components/CarouselBooks"
+
 
 const PrincipalClient = () => {
 
+    const navigate = useNavigate()
+
+    // Filtrar categoria
     const [categoryFilter, setCategoryFilter] = useState('')
 
     // Obtener Categorias
@@ -20,7 +28,7 @@ const PrincipalClient = () => {
         fetch()
     }, [])
 
-    // Obtener Libros
+    // Obtener libros para el buscador
     const [libros, setLibros] = useState([])
     useEffect(() => {
         const fetch = async () => {
@@ -30,9 +38,21 @@ const PrincipalClient = () => {
         fetch()
     }, [])
 
+    const handleLibroSearch = (row) => {
+        navigate(`/${row.denominacion}`)
+    }
+
+    const [librosPorCategoria, setLibrosPorCategoria] = useState([])
+    useEffect(() => {
+        const fetch = async () => {
+            const response = await obtenerLibrosPorCategoria()
+            setLibrosPorCategoria(response.data)
+        }
+        fetch()
+    }, [])
 
     return (
-        <div className="flex flex-col w-full h-full">
+        <div className="flex flex-col w-full h-full mb-4">
             <CarouselCategories>
                 <ButtonCategoryFilter
                     title={'Todos los libros'}
@@ -48,17 +68,27 @@ const PrincipalClient = () => {
                     />
                 ))}
             </CarouselCategories>
-            <div className="flex w-full px-4 py-2">
-                <input type="text" className="w-full" />
+            <div className="flex w-full px-4 py-4 bg-gray-100 laptop-standar:hidden">
+                <SearchBooksClient
+                    className={'laptop-large:hidden w-full'}
+                    valueFilter={['denominacion', 'autor']}
+                    placeholder={'¿Qué libro estas buscando?'}
+                    row={libros}
+                    onClick={handleLibroSearch}
+                />
+                {/* <ButtonTheme /> */}
             </div>
-            
-            <div className="grid gap-4 mobile:grid-cols-1 tablet:grid-cols-2 laptop-standar:grid-cols-3 laptop-large:grid-cols-4 desktop:grid-cols-5 w-full p-4">
-                {libros.map((libro, index) => (
-                    <LibroCardSelect
-                        key={index}
-                        titulo={libro.denominacion}
-                        portada={libro.portada ? libro.portada : ImagenSinPortada}
-                    />
+            <div className="flex flex-col w-full h-full px-4 bg-gray-50 pt-4 space-y-4 overflow-y-auto">
+                {librosPorCategoria.map((categoria, index) => (
+                    <CarouselBooks titleCarousel={categoria.categoria} key={index}>
+                        {categoria.libros.map((libro, index)=>(
+                            <LibroCardSelect key={index} 
+                                titulo={libro.denominacion}
+                                autor={libro.autor}
+                                portada={libro.portada}
+                            />
+                        ))}
+                    </CarouselBooks>
                 ))}
             </div>
         </div>

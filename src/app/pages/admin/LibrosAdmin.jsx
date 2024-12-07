@@ -448,8 +448,8 @@ const LibrosAdmin = () => {
                                 key={pdf ? pdf.name : 'default'}
                             />
 
-                                Sin PDF
                             <p className={`${deleteOption && newPdf ? 'z-10' : 'hidden'} absolute inset-0 flex items-center justify-center`}>
+                                Sin PDF
                             </p>
 
                             <div className={`absolute inset-0 flex flex-col space-y-5 justify-center items-center transition-all duration-300

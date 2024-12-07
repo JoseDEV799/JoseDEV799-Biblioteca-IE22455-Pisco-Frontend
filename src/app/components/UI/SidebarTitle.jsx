@@ -6,7 +6,7 @@ const SidebarTitle = ({ logo, isHovered, tituloSuperior, tituloInferior, classNa
         <div className={`group bg-[#0069C0] relative w-full py-8 text-center transition-all duration-300 ${className} `}>
 
             <div className={`
-                absolute inset-0 flex items-center tablet:px-5 laptop-standar:px-0 laptop-standar:justify-center justify-between
+                absolute inset-0 flex items-center max-laptop-standar:px-5 laptop-standar:px-0 laptop-standar:justify-center justify-between
                 transition-all duration-300
                 ${isHovered ? 'laptop-standar:opacity-100 laptop-standar:scale-100' : 'laptop-standar:opacity-0 laptop-standar:scale-0'}`}>
 
@@ -23,16 +23,18 @@ const SidebarTitle = ({ logo, isHovered, tituloSuperior, tituloInferior, classNa
                                 desktop:text-xs
                                 laptop-large:text-xs
                                 laptop-standar:text-xs
-                                tablet:text-sm
+                                tablet:text-xs
+                                max-tablet:text-xs
                                 `}>
                             {tituloSuperior}
                         </p>
                         <p className={`
                                 text-white
                                 desktop:text-xs
-                                laptop-large:text-md
+                                laptop-large:text-xs
                                 laptop-standar:text-sm laptop-standar:-mt-1
                                 tablet:text-xs
+                                max-tablet:text-xs
                                 `}>
                             {tituloInferior}
                         </p>

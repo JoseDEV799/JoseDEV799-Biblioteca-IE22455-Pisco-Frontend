@@ -9,7 +9,7 @@ import NavbarUsuario from "./UI/NavbarUsuario"
 const NavbarClient = ({ children }) => {
     return (
         <>
-            <nav className={`grid grid-cols-3 bg-[#137FD9] relative`}>
+            <nav className={`flex w-full bg-[#137FD9] relative`}>
                 {children}
             </nav>
         </>
