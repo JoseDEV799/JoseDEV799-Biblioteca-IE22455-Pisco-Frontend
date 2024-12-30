@@ -55,7 +55,8 @@ const PrincipalClient = () => {
         <div className="flex flex-col w-full h-full mb-4">
             <CarouselCategories>
                 <ButtonCategoryFilter
-                    title={'Todos los libros'}
+                    title={'Todos'}
+                    color={'#fcd34d'}
                     onClick={() => setCategoryFilter('')}
                     isSelect={categoryFilter == ''}
                 />
@@ -63,6 +64,7 @@ const PrincipalClient = () => {
                     <ButtonCategoryFilter
                         key={index}
                         title={categoria.nombre}
+                        color={categoria.color}
                         onClick={() => setCategoryFilter(categoria._id)}
                         isSelect={categoria._id == categoryFilter}
                     />
@@ -78,9 +80,9 @@ const PrincipalClient = () => {
                 />
                 {/* <ButtonTheme /> */}
             </div>
-            <div className="flex flex-col w-full h-full px-4 bg-gray-50 pt-4 space-y-4 overflow-y-auto">
+            <div className="flex flex-col w-full h-full px-4 bg-[#354959]/2 pt-4 space-y-4 overflow-y-auto shadow-inner">
                 {librosPorCategoria.map((categoria, index) => (
-                    <CarouselBooks titleCarousel={categoria.categoria} key={index}>
+                    <CarouselBooks titleCarousel={categoria.categoria} color={categoria.color} key={index}>
                         {categoria.libros.map((libro, index)=>(
                             <LibroCardSelect key={index} 
                                 titulo={libro.denominacion}

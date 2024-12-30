@@ -36,10 +36,17 @@ const CategoriasAdmin = () => {
     const [id, setId] = useState('')
     const [nombre, setNombre] = useState('')
     const [abreviatura, setAbreviatura] = useState('')
+    const [color, setColor] = useState('')
 
     //Actualizar Datos
     const handleNombre = (event) => setNombre(event.target.value)
     const handleAbreviatura = (event) => setAbreviatura(event.target.value)
+    const handleColor = (selectedColor) => setColor(selectedColor)
+
+    // useEffect(() => {
+    //     console.log(color);
+
+    // }, [color])
 
     // Agregar Categoria
     const AgregarCategoria = async (e) => {
@@ -47,6 +54,7 @@ const CategoriasAdmin = () => {
         const formData = new FormData()
         if (nombre.trim()) formData.append('nombre', nombre);
         if (abreviatura.trim()) formData.append('abreviatura', abreviatura);
+        formData.append('color', color)
         try {
             const response = await crearCategoriaAdmin(formData)
             setCategorias([...categorias, response.data.categoria])
@@ -64,6 +72,7 @@ const CategoriasAdmin = () => {
         formData.append('id', id)
         formData.append('nombre', nombre)
         formData.append('abreviatura', abreviatura)
+        formData.append('color', color)
         try {
             const response = await modificarCategoriaAdmin(id, formData)
             setCategorias((prevCategoria) =>
@@ -102,6 +111,7 @@ const CategoriasAdmin = () => {
         setCategoriaModal(true)
         setNombre('')
         setAbreviatura('')
+        setColor('')
     }
 
     // Modal Modificar Usuario
@@ -115,6 +125,9 @@ const CategoriasAdmin = () => {
         setId(row._id)
         setNombre(row.nombre)
         setAbreviatura(row.abreviatura)
+        setColor(row.color)
+        console.log(color);
+        
     }
 
     // Modal Eliminar Usuario
@@ -132,6 +145,18 @@ const CategoriasAdmin = () => {
 
 
     const closeCategoriaModal = () => setCategoriaModal(false)
+
+    const optionsSelect = [
+        { value: '#14BED9', text: '#14BED9' },
+        { value: '#1442D9', text: '#1442D9' },
+        { value: '#1480D9', text: '#1480D9' },
+        { value: '#14D9B2', text: '#14D9B2' },
+        { value: '#2414D9', text: '#2414D9' },
+        { value: '#D98B14', text: '#D98B14' },
+        { value: '#48D914', text: '#48D914' },
+        { value: '#D914C1', text: '#D914C1' },
+        { value: '#386284', text: '#386284' }
+    ]
 
     return (
         <>
@@ -186,6 +211,18 @@ const CategoriasAdmin = () => {
                     onChange={handleAbreviatura}
                     name={'abreviatura'}
                     error={errors} />
+
+                {!deleteOption &&
+                    <InputFormModal
+                        type={'color'}
+                        title={'Color'}
+                        value={color}
+                        optionsSelect={optionsSelect}
+                        optionValue={'value'}
+                        optionText={'text'}
+                        onChange={handleColor}
+                    />
+                }
 
             </ModalForm>
         </>

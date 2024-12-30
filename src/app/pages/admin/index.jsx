@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom"
 import Container from "../../components/Container"
 import SidebarAdmin from "../../components/SidebarAdmin"
 import OptionSidebar from "../../components/UI/OptionSidebar"
-import { FaUsers } from "react-icons/fa";
+import { FaUsers, FaFeatherAlt  } from "react-icons/fa";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 import { IoLibrary } from "react-icons/io5";
 import { GiExitDoor } from "react-icons/gi";
@@ -59,6 +59,13 @@ const Admin = () => {
                                     route={'/ie22455/biblioteca/admin/categorias'}
                                     isHovered={isHovered}
                                     iconCompact={<BiSolidCategoryAlt />}
+                                />
+
+                                <OptionSidebar
+                                    text={'Autores'}
+                                    route={'/ie22455/biblioteca/admin/autores'}
+                                    isHovered={isHovered}
+                                    iconCompact={<FaFeatherAlt />}
                                 />
 
                                 <OptionSidebar

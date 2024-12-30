@@ -64,7 +64,7 @@ const InputFormModal = ({
                         )
                     case 'options':
                         return (
-                            <select value={value} 
+                            <select value={value}
                                 onChange={onChange}
                                 className="w-full rounded-md shadow-sm border border-gray-200 py-2 pl-2">
                                 {optionNull &&
@@ -111,6 +111,28 @@ const InputFormModal = ({
                                     onChange={onChange}
                                     className="hidden"
                                 />
+                            </div>
+                        )
+                    case 'color':
+                        return (
+                            <div className={`flex w-full h-full justify-center items-center py-2`}>
+                                <div className="grid grid-cols-6 w-full gap-4">
+                                    {optionsSelect.map((option, index) => (
+                                        <button
+                                            key={index}
+                                            type="button"
+                                            onClick={() => onChange(option[optionValue])}
+                                            className={`flex flex-shrink-0 size-10 rounded-full cursor-pointer ${value === option[optionValue] ? 'ring-2 ring-offset-2 ring-blue-500' : ''
+                                                }`}
+                                            style={{ backgroundColor: option[optionValue] }}
+                                        >
+                                            {/* Puedes agregar un checkmark si el color está seleccionado */}
+                                            {value === option[optionValue] && (
+                                                <span className="text-white text-xs m-auto">✓</span>
+                                            )}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
                         )
                     default:

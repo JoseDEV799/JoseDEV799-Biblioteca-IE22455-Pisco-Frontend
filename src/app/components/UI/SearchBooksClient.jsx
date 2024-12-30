@@ -60,6 +60,22 @@ const SearchBooksClient = ({ row, onClick, placeholder, className, valueFilter =
                             </p>
                         </div>
                     ))}
+                    {dataFilter.map((rowCurrent, index) => (
+                        <div className={`flex flex-col w-full p-2 transition-all duration-300 
+                            bg-white hover:bg-gray-200 cursor-pointer
+                            ${index == 0 && 'rounded-t-md'}
+                            ${index !== dataFilter.length - 1 ? 'border-b' : 'rounded-b-md'}
+                            `}
+                            onClick={()=>onClick(rowCurrent)}
+                            key={index}>
+                            <p className="w-full font-semibold">
+                                {rowCurrent[valueFilter[0]]}
+                            </p>
+                            <p className="w-full italic">
+                                {rowCurrent[valueFilter[1]]}
+                            </p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

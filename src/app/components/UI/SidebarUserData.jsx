@@ -37,7 +37,7 @@ const SidebarUserData = ({ className, isHovered }) => {
                                             tablet:text-md
                                             max-tablet:text-sm
                                             ">
-                                            Jose Falconi
+                                            Jose Carlos Falconi Valdivia
                                         </span>
                                         <span className="text-white text-center
                                             laptop-standar:text-md
@@ -57,7 +57,7 @@ const SidebarUserData = ({ className, isHovered }) => {
                                             Cerrar Sesion
                                         </p>
                                     </button>
-                                    <ButtonTheme />
+                                    {/* <ButtonTheme /> */}
                                 </div>
                             </>
                         )

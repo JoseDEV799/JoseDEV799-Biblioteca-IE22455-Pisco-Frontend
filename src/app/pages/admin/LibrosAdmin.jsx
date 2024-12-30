@@ -111,11 +111,11 @@ const LibrosAdmin = () => {
         e.preventDefault()
         const formData = new FormData()
         formData.append('id', id)
-        if (denominacion.trim()) formData.append('denominacion', denominacion);
-        if (autor.trim()) formData.append('autor', autor);
-        if (cantidad.trim()) formData.append('cantidad', cantidad);
-        if (observacion.trim()) formData.append('observacion', observacion);
-        if (area.trim()) formData.append('area', area);
+        if (denominacion?.trim()) formData.append('denominacion', denominacion);
+        if (autor?.trim()) formData.append('autor', autor);
+        if (cantidad?.trim()) formData.append('cantidad', cantidad);
+        if (observacion?.trim()) formData.append('observacion', observacion);
+        if (area?.trim()) formData.append('area', area);
         if (categoria_id) formData.append('categoria_id', categoria_id);
         if (!newPortada) {
             if (portada) formData.append('portada', portada);
@@ -278,7 +278,7 @@ const LibrosAdmin = () => {
 
             <TableAdmin
                 headers={['Denominacion', 'Autor', 'Categoria', 'Area', 'Cantidad', 'Observacion']}
-                headerFields={['denominacion', 'autor', 'category_id', 'area', 'cantidad', 'observacion']}
+                headerFields={['denominacion', 'autor_id', 'category_id', 'area', 'cantidad', 'observacion']}
                 rows={libros}
                 editOption
                 deleteOption

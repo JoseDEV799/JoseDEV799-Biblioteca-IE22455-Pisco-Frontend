@@ -5,6 +5,9 @@ export const obtenerLibrosCliente = ({ idcategory = '' }) => axios.get('/cliente
 
 export const obtenerLibrosPorCategoria = () => axios.get('/cliente/book/books/category')
 
+export const obtenerLibroPorNombre = (titulo) => axios.post('/cliente/book/titulo', { titulo })
+
+
 // Admin
 export const obtenerLibrosAdmin = () => axios.get('/admin/book/books')
 

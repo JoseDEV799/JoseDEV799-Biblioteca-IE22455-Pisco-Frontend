@@ -29,8 +29,8 @@ const CarouselCategories = ({ children }) => {
 
     return (
         <div ref={scrollCarouselCategories}
-            className={`flex w-full flex-shrink-0 h-14 shadow-sm overflow-x-auto items-center
-                bg-gradient-to-b  from-gray-200 to-gray-50 px-4 space-x-2`}
+            className={`flex w-full flex-shrink-0 h-14 shadow-sm overflow-x-auto items-center px-5 space-x-3
+                bg-white`}
             style={{ scrollbarWidth: 'none' }}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
